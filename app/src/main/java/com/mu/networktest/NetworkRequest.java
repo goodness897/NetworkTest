@@ -1,5 +1,6 @@
 package com.mu.networktest;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -29,6 +30,7 @@ public abstract class NetworkRequest extends AsyncTask<Void, Void, String> {
     private String method;
     private int code;
     private String errorMessage;
+    private ProgressDialog dialog;
 
     public interface AsyncResponse {
         void successResult(String output);
@@ -54,6 +56,14 @@ public abstract class NetworkRequest extends AsyncTask<Void, Void, String> {
     protected void setRequestProperty(HttpURLConnection conn) {}
 
     protected void write(OutputStream out) {}
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        dialog = new ProgressDialog(MyApplication.getContext());
+        dialog.show(MyApplication.getContext(),"","Loading...",true);
+
+    }
 
     @Override
     protected String doInBackground(Void... objects) {
@@ -98,6 +108,8 @@ public abstract class NetworkRequest extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
+
+        dialog.dismiss();
         if (s != null) {
             result.successResult(s);
         } else {
