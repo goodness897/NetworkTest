@@ -36,5 +36,15 @@
         android:onClick="loginButtonClicked"
         android:textColor="@android:color/white" />
 
+    <Button
+        android:text="테스트"
+        android:id="@+id/btn_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:onClick="testButtonClicked"
+        android:textColor="@android:color/white" />
+
+
 
 </LinearLayout>
